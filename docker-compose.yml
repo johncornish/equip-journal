@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  # web:
+  #   depends_on:
+  #   - 'db'
+  #   tty: true
+  #   environment:
+  #     DB_USERNAME: 'equip'
+  #     DB_PASSWORD: 'localPassword'
+  #     DB_DATABASE: 'db'
+  #     DB_PORT: 3306
+  #     DB_HOST: 'db'
+  #     RAILS_ENV: development
+  #     RAILS_MAX_THREADS: 5
+  #   build: .
+  #   ports:
+  #   - "3000:3000"
+  #   expose:
+  #   - '3000'
+  db:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'equip_journal_test'
+      MYSQL_USER: 'equip'
+      MYSQL_PASSWORD: 'localPassword'
+    ports:
+    - '3307:3306'
+    expose:
+    - '3306'
+    volumes:
+      - equip-db:/var/lib/mysql
+
+volumes:
+  equip-db:
