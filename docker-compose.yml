@@ -24,7 +24,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: 'equip_journal_test'
+      MYSQL_DATABASE: 'equip_journal_development'
       MYSQL_USER: 'equip'
       MYSQL_PASSWORD: 'localPassword'
     ports:
