@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Journal:</strong>
+  <%= @journal_entry.journal_id %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @journal_entry.text %>
+</p>
+
+<%= link_to 'Edit', edit_journal_entry_path(@journal_entry) %> |
+<%= link_to 'Back', journal_entries_path %>
