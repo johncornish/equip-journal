@@ -1,15 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @journal.name %>
-</p>
-
 <%= link_to 'Edit', edit_journal_path(@journal) %> |
 <%= link_to 'Back', journals_path %>
 
-<ul>
-  <% @journal.journal_entries.each do |je| %>
-  <li><%= je.text %></li>
-  <% end %>
-</ul>
+<%= react_component(
+  "Journal",
+  { name: @journal.name, journalEntries: @journal.journal_entries}
+) %>
