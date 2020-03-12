@@ -10,6 +10,8 @@ class JournalsController < ApplicationController
   # GET /journals/1
   # GET /journals/1.json
   def show
+    @journal_entry = JournalEntry.new
+    @journal_entry.journal = @journal
   end
 
   # GET /journals/new

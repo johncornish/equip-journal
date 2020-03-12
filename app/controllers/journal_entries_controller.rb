@@ -30,9 +30,11 @@ class JournalEntriesController < ApplicationController
       if @journal_entry.save
         format.html { redirect_to @journal_entry, notice: 'Journal entry was successfully created.' }
         format.json { render :show, status: :created, location: @journal_entry }
+        format.js { render :show }
       else
         format.html { render :new }
         format.json { render json: @journal_entry.errors, status: :unprocessable_entity }
+        # format.js { render :show }
       end
     end
   end

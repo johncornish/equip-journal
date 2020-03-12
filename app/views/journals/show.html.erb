@@ -8,8 +8,10 @@
 <%= link_to 'Edit', edit_journal_path(@journal) %> |
 <%= link_to 'Back', journals_path %>
 
-<ul>
+<%= render 'journal_entry_form', journal_entry: @journal_entry %>
+
+<ul id="journal_entries">
   <% @journal.journal_entries.each do |je| %>
-  <li><%= je.text %></li>
+  <%= render(:partial => 'journal_entries/single', :locals => { :journal_entry => je }) %>
   <% end %>
 </ul>

@@ -23,6 +23,15 @@ class JournalEntriesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to journal_entry_url(JournalEntry.last)
   end
 
+  test "should create journal_entry via remote form" do
+    assert_difference('JournalEntry.count') do
+      post journal_entries_url, xhr: true, params: { journal_entry: { journal_id: @journal_entry.journal_id, text: @journal_entry.text } }
+    end
+
+    assert_response :success
+    assert_equal "text/javascript", @response.media_type
+  end
+
   test "should show journal_entry" do
     get journal_entry_url(@journal_entry)
     assert_response :success
