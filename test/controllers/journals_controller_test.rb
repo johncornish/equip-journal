@@ -23,9 +23,15 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to journal_url(Journal.last)
   end
 
-  test "should show journal and allow user to create entries" do
+  test "should show journal and entries" do
+    JournalEntry.create!(
+      journal: @journal,
+      text: 'test-entry-text',
+    )
     get journal_url(@journal)
     assert_response :success
+    assert_select 'body', /.*#{@journal.name}.*/
+    assert_select 'body', /.*test-entry-text.*/
   end
 
   test "should get edit" do
