@@ -10,13 +10,22 @@
 
 <%= render 'journal_entry_form', journal_entry: @journal_entry %>
 
-<ul id="journal-entries">
+
+<div class="container-fluid">
+  <div class="row">
   <% @journal.journal_entries_by_collection.each do |collection_key, jes| %>
-    <li>
-      <strong><%= collection_key.strftime('%-m/%-d/%Y') %></strong>
-    </li>
-    <% jes.each do |je| %>
-    <%= render(:partial => 'journal_entries/single', :locals => { :journal_entry => je }) %>
-    <% end %>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= collection_key.strftime('%-m/%-d/%Y') %></h5>
+          <ul id="journal-entries-<%= collection_key.strftime('%-m-%-d-%Y') %>">
+            <% jes.each do |je| %>
+            <%= render(:partial => 'journal_entries/single', :locals => { :journal_entry => je }) %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
   <% end %>
-</ul>
+  </div>
+</div>
