@@ -1,2 +1,4 @@
 $("#journal-entries-<%= @journal_entry.created_at.strftime('%-m-%-d-%Y') %>")
   .append("<%= escape_javascript render(:partial => 'journal_entries/single', :locals => { :journal_entry => @journal_entry }) %>")
+  
+$("#journal_entry_text").val('')
