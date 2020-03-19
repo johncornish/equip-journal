@@ -10,5 +10,10 @@
   <%= @journal_entry.text %>
 </p>
 
+<p>
+  <strong>Collection:</strong>
+  <%= @journal_entry.collection %>
+</p>
+
 <%= link_to 'Edit', edit_journal_entry_path(@journal_entry) %> |
 <%= link_to 'Back', journal_entries_path %>

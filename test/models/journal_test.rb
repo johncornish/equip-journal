@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class JournalTest < ActiveSupport::TestCase
-  test "group journal entries by date" do
+  test "group journal entries by date and collection" do
     j = Journal.create!(
       name: 'test-journal',
     )
@@ -11,23 +11,38 @@ class JournalTest < ActiveSupport::TestCase
     je1 = JournalEntry.create!(
       journal: j,
       text: 'test-entry-text-1',
+      collection: 'test-collection-text-1',
     )
-    t = Time.local(2000, 1, 1, 10, 0, 0)
-    Timecop.travel(t)
     je2 = JournalEntry.create!(
       journal: j,
       text: 'test-entry-text-2',
     )
-    t = Time.local(2000, 1, 12, 10, 0, 0)
+    t = Time.local(2000, 1, 1, 10, 0, 0)
     Timecop.travel(t)
     je3 = JournalEntry.create!(
       journal: j,
       text: 'test-entry-text-3',
+      collection: 'test-collection-text-2',
+    )
+    t = Time.local(2000, 1, 1, 9, 0, 0)
+    Timecop.travel(t)
+    je4 = JournalEntry.create!(
+      journal: j,
+      text: 'test-entry-text-4',
+    )
+    t = Time.local(2000, 1, 12, 10, 0, 0)
+    Timecop.travel(t)
+    je5 = JournalEntry.create!(
+      journal: j,
+      text: 'test-entry-text-5',
     )
 
     expected = ActiveSupport::OrderedHash.new
-    expected[Date.new(2000, 1, 1)] = [je2, je1]
-    expected[Date.new(2000, 1, 12)] = [je3]
+    expected['1-1-2000'] = [je4, je3, je1, je2]
+    expected['test-collection-text-2'] = [je3]
+    expected['test-collection-text-1'] = [je1]
+    expected['1-12-2000'] = [je5]
+
     assert_equal expected, j.journal_entries_by_collection
   end
 end

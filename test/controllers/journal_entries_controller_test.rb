@@ -17,7 +17,7 @@ class JournalEntriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create journal_entry" do
     assert_difference('JournalEntry.count') do
-      post journal_entries_url, params: { journal_entry: { journal_id: @journal_entry.journal_id, text: @journal_entry.text } }
+      post journal_entries_url, params: { journal_entry: { journal_id: @journal_entry.journal_id, text: @journal_entry.text, collection: @journal_entry.collection } }
     end
 
     assert_redirected_to journal_entry_url(JournalEntry.last)
@@ -25,7 +25,7 @@ class JournalEntriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create journal_entry via remote form" do
     assert_difference('JournalEntry.count') do
-      post journal_entries_url, xhr: true, params: { journal_entry: { journal_id: @journal_entry.journal_id, text: @journal_entry.text } }
+      post journal_entries_url, xhr: true, params: { journal_entry: { journal_id: @journal_entry.journal_id, text: @journal_entry.text, collection: @journal_entry.collection } }
     end
 
     assert_response :success
@@ -43,7 +43,7 @@ class JournalEntriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update journal_entry" do
-    patch journal_entry_url(@journal_entry), params: { journal_entry: { journal_id: @journal_entry.journal_id, text: @journal_entry.text } }
+    patch journal_entry_url(@journal_entry), params: { journal_entry: { journal_id: @journal_entry.journal_id, text: @journal_entry.text, collection: @journal_entry.collection } }
     assert_redirected_to journal_entry_url(@journal_entry)
   end
 

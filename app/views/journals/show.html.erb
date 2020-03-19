@@ -17,8 +17,8 @@
     <div class="col-sm-6">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title"><%= collection_key.strftime('%-m/%-d/%Y') %></h5>
-          <ul id="journal-entries-<%= collection_key.strftime('%-m-%-d-%Y') %>">
+          <h5 class="card-title"><%= collection_key %></h5>
+          <ul id="journal-entries-<%= collection_key %>">
             <% jes.each do |je| %>
             <%= render(:partial => 'journal_entries/single', :locals => { :journal_entry => je }) %>
             <% end %>

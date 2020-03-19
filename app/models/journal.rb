@@ -5,12 +5,11 @@ class Journal < ApplicationRecord
     jes_by_collection = ActiveSupport::OrderedHash.new { |h, k| h[k] = [] }
     jes = self.journal_entries.order(:created_at)
     jes.each do |je|
-      d = Date.new(
-        je.created_at.year,
-        je.created_at.month,
-        je.created_at.day,
-      )
-      jes_by_collection[d] << je
+      d_str = "#{je.created_at.month}-#{je.created_at.day}-#{je.created_at.year}"
+      jes_by_collection[d_str] << je
+      unless je.collection.to_s.strip.empty?
+        jes_by_collection[je.collection] << je
+      end
     end
 
     return jes_by_collection

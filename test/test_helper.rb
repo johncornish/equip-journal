@@ -10,4 +10,7 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def to_sequence_regex(arr)
+    return Regexp.new(arr.join('.*?'), Regexp::MULTILINE)
+  end
 end

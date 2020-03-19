@@ -28,35 +28,61 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
       journal: @journal,
       text: 'test-entry-text',
     )
+
+    expected = to_sequence_regex([
+      @journal.name,
+      'test-entry-text',
+      'edit',
+      'delete',
+    ])
+
     get journal_url(@journal)
     assert_response :success
-    assert_select 'body', /.*#{@journal.name}.*/
-    assert_select 'body', /.*test-entry-text.*edit.*/
+    assert_select 'body', expected
     assert_select 'input[type="submit"][value=?]', 'Create Journal entry'
   end
 
-  test "should break down journal lines by day" do
+  test "should break down journal lines by day and collection" do
     t = Time.local(2000, 1, 1, 10, 0, 0)
-    Timecop.travel(t)
-    JournalEntry.create!(
-      journal: @journal,
-      text: 'test-entry-text-1',
-    )
-    t = Time.local(2000, 1, 12, 10, 0, 0)
     Timecop.travel(t)
     JournalEntry.create!(
       journal: @journal,
       text: 'test-entry-text-2',
     )
+    t = Time.local(2000, 1, 1, 9, 0, 0)
+    Timecop.travel(t)
+    JournalEntry.create!(
+      journal: @journal,
+      text: 'test-entry-text-1',
+      collection: 'test-collection-1',
+    )
+    t = Time.local(2000, 1, 1, 11, 0, 0)
+    Timecop.travel(t)
+    JournalEntry.create!(
+      journal: @journal,
+      text: 'test-entry-text-3',
+      collection: 'test-collection-2',
+    )
+    t = Time.local(2000, 1, 12, 10, 0, 0)
+    Timecop.travel(t)
+    JournalEntry.create!(
+      journal: @journal,
+      text: 'test-entry-text-4',
+    )
     get journal_url(@journal)
 
-    order = [
-      '1/1/2000',
+    expected = to_sequence_regex([
+      '1-1-2000',
       'test-entry-text-1',
-      '1/12/2000',
       'test-entry-text-2',
-    ]
-    expected = Regexp.new(order.join('.*?'), Regexp::MULTILINE)
+      'test-entry-text-3',
+      'test-collection-1',
+      'test-entry-text-1',
+      'test-collection-2',
+      'test-entry-text-3',
+      '1-12-2000',
+      'test-entry-text-4',
+    ])
 
     assert_response :success
     assert_select 'body', expected
