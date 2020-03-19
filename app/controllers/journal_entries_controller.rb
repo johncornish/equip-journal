@@ -34,6 +34,7 @@ class JournalEntriesController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @journal_entry.errors, status: :unprocessable_entity }
+        # TODO: care about this
         # format.js { render :show }
       end
     end
@@ -60,6 +61,7 @@ class JournalEntriesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to journal_entries_url, notice: 'Journal entry was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 

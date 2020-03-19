@@ -31,7 +31,7 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
     get journal_url(@journal)
     assert_response :success
     assert_select 'body', /.*#{@journal.name}.*/
-    assert_select 'body', /.*test-entry-text.*/
+    assert_select 'body', /.*test-entry-text.*edit.*/
     assert_select 'input[type="submit"][value=?]', 'Create Journal entry'
   end
 

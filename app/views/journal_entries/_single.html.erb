@@ -1,3 +1,5 @@
-<li>
+<li id="journal-entry-<%= journal_entry.id %>">
   <%= journal_entry.text %>
+  <%= link_to 'edit', edit_journal_entry_path(journal_entry) %>
+  <%= link_to 'delete', journal_entry, method: :delete, remote: true %>
 </li>
