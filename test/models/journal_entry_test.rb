@@ -38,4 +38,28 @@ class JournalEntryTest < ActiveSupport::TestCase
     j.destroy
     assert_equal 0, JournalEntry.all.length
   end
+
+  test "knows if it's in a custom collection or not" do
+    j = Journal.create!(
+      name: 'Test journal',
+    )
+    je1 = JournalEntry.create!(
+      text: 'Test journal entry text 1',
+      journal: j,
+    )
+    je2 = JournalEntry.create!(
+      text: 'Test journal entry text 1',
+      journal: j,
+      collection: '',
+    )
+    je3 = JournalEntry.create!(
+      text: 'Test journal entry text 1',
+      journal: j,
+      collection: 'some collection string',
+    )
+
+    assert !je1.in_collection?
+    assert !je2.in_collection?
+    assert je3.in_collection?
+  end
 end

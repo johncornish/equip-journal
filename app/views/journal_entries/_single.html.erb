@@ -1,4 +1,4 @@
-<li id="journal-entry-<%= journal_entry.id %>">
+<li id="journal-entry-<%= journal_entry.id %>" class="<%= journal_entry.in_collection? ? 'text-muted' : ''%>">
   <%= journal_entry.text %>
   <%= link_to 'edit', edit_journal_entry_path(journal_entry) %>
   <%= link_to 'delete', journal_entry, method: :delete, remote: true %>

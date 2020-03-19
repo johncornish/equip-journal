@@ -7,7 +7,7 @@ class Journal < ApplicationRecord
     jes.each do |je|
       d_str = "#{je.created_at.month}-#{je.created_at.day}-#{je.created_at.year}"
       jes_by_collection[d_str] << je
-      unless je.collection.to_s.strip.empty?
+      if je.in_collection?
         jes_by_collection[je.collection] << je
       end
     end
