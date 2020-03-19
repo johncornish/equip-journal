@@ -88,6 +88,31 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'body', expected
   end
 
+  test "should show a collection index" do
+    JournalEntry.create!(
+      journal: @journal,
+      text: 'test-entry-text-1',
+      collection: 'test-entry-collection-1',
+    )
+    JournalEntry.create!(
+      journal: @journal,
+      text: 'test-entry-text-2',
+      collection: 'test-entry-collection-2',
+    )
+
+    expected = to_sequence_regex([
+      'Index',
+      'test-entry-collection-1',
+      'test-entry-collection-2',
+      'test-entry-collection-1',
+    ])
+
+    get journal_url(@journal)
+    assert_response :success
+    assert_select 'body', expected
+    assert_select 'input[type="submit"][value=?]', 'Create Journal entry'
+  end
+
   test "should get edit" do
     get edit_journal_url(@journal)
     assert_response :success
