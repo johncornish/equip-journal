@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class JournalEntryTest < ActiveSupport::TestCase
-  setup do
-    Journal.destroy_all
-    JournalEntry.destroy_all
-  end
-
   test "belongs to a journal" do
     j = Journal.create!(
       name: 'Test journal',
@@ -34,9 +29,9 @@ class JournalEntryTest < ActiveSupport::TestCase
       journal: j,
     )
 
-    assert_equal 1, JournalEntry.all.length
-    j.destroy
-    assert_equal 0, JournalEntry.all.length
+    assert_difference('JournalEntry.count', -1) do
+      j.destroy
+    end
   end
 
   test "knows if it's in a custom collection or not" do
