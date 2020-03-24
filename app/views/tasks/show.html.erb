@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Journal entry:</strong>
+  <%= @task.journal_entry_id %>
+</p>
+
+<p>
+  <strong>Is complete:</strong>
+  <%= @task.is_complete %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

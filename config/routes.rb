@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tasks
   root to: 'index#index'
   resources :journal_entries
   resources :journals

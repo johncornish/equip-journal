@@ -8,3 +8,7 @@ two:
   journal: parentJournal
   text: MyText
   collection: MyCollection
+
+parentJournalEntry:
+  journal: parentJournal
+  text: ParentJournalEntry
