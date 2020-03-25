@@ -5,4 +5,8 @@ class JournalEntry < ApplicationRecord
   def in_collection?
     return !self.collection.to_s.strip.empty?
   end
+
+  def is_task?
+    return !self.task.nil?
+  end
 end

@@ -42,12 +42,18 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'input[type="submit"][value=?]', 'Create Journal entry'
   end
 
-  test "should break down journal lines by day and collection" do
+  test "should break down journal lines by day and collection, with tasks on the current day" do
     t = Time.local(2000, 1, 1, 10, 0, 0)
     Timecop.travel(t)
     JournalEntry.create!(
       journal: @journal,
       text: 'test-entry-text-2',
+    )
+    Task.create!(
+      journal_entry: JournalEntry.create!(
+        journal: @journal,
+        text: 'test-entry-task-1',
+      ),
     )
     t = Time.local(2000, 1, 1, 9, 0, 0)
     Timecop.travel(t)
@@ -69,19 +75,31 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
       journal: @journal,
       text: 'test-entry-text-4',
     )
+    Task.create!(
+      journal_entry: JournalEntry.create!(
+        journal: @journal,
+        text: 'test-entry-task-2',
+      ),
+    )
     get journal_url(@journal)
 
     expected = to_sequence_regex([
       '1-1-2000',
       'test-entry-text-1',
       'test-entry-text-2',
+      'test-entry-task-1',
       'test-entry-text-3',
       'test-collection-1',
       'test-entry-text-1',
       'test-collection-2',
       'test-entry-text-3',
       '1-12-2000',
+      'Tasks',
+      'test-entry-task-1',
+      'test-entry-task-2',
+      'Journal',
       'test-entry-text-4',
+      'test-entry-task-2',
     ])
 
     assert_response :success

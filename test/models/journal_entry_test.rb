@@ -57,4 +57,36 @@ class JournalEntryTest < ActiveSupport::TestCase
     assert !je2.in_collection?
     assert je3.in_collection?
   end
+
+  test "knows if it's a task or not" do
+    j = Journal.create!(
+      name: 'Test journal',
+    )
+    je1 = JournalEntry.create!(
+      text: 'Test journal entry text 1',
+      journal: j,
+    )
+    je2 = JournalEntry.create!(
+      text: 'Test journal entry text 1',
+      journal: j,
+      task: nil,
+    )
+    je3 = JournalEntry.create!(
+      text: 'Test journal entry text 1',
+      journal: j,
+      task_id: nil,
+    )
+    je4 = JournalEntry.create!(
+      text: 'Test journal entry text 1',
+      journal: j,
+    )
+    Task.create!(
+      journal_entry: je4,
+    )
+
+    assert !je1.is_task?
+    assert !je2.is_task?
+    assert !je3.is_task?
+    assert je4.is_task?
+  end
 end
