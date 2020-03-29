@@ -1,6 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 
+import JournalPage from './JournalPage'
+
 // <%= render 'journal_entry_form', journal_entry: @journal_entry %>
 const JournalEntry = ({id, text, collection}) => (
   <li className={collection ? ' text-muted' : ''}>
@@ -8,23 +10,23 @@ const JournalEntry = ({id, text, collection}) => (
   </li>
 )
 
-const JournalPage = ({title, entries}) => (
-  <div className="col-sm-6">
-    <div className="card">
-      <div className="card-body">
-        <h5 className="card-title">{title}</h5>
-        <ul>
-          {entries.map((entry, i) => (
-            <JournalEntry
-              key={i}
-              {...entry}
-            />
-        ))}
-        </ul>
-      </div>
-    </div>
-  </div>
-)
+// const JournalPage = ({title, entries}) => (
+//   <div className="col-sm-6">
+//     <div className="card">
+//       <div className="card-body">
+//         <h5 className="card-title">{title}</h5>
+//         <ul>
+//           {entries.map((entry, i) => (
+//             <JournalEntry
+//               key={i}
+//               {...entry}
+//             />
+//         ))}
+//         </ul>
+//       </div>
+//     </div>
+//   </div>
+// )
 
 class Journal extends React.Component {
   render () {
@@ -33,13 +35,11 @@ class Journal extends React.Component {
         <a href="#">{c}</a>
       </li>
     ))
-    const pageElements = Object
-                          .entries(this.props.journalEntriesByCollection)
-                          .map(([collectionKey, jes]) => (
+    const pageElements = this.props.pages
+                          .map((page, i) => (
                             <JournalPage
-                              key={collectionKey}
-                              title={collectionKey}
-                              entries={jes}
+                              key={i}
+                              {...page}
                             />
                           ))
     return (

@@ -6,11 +6,13 @@ import Journal from './Journal'
 import configureStore from '../lib/journal/configureStore'
 const store = configureStore()
 
+import ControllableJournal from '../containers/ControllableJournal'
+
 class JournalApp extends React.Component {
   render () {
     return (
       <Provider store={store}>
-        <Journal name={this.props.name}></Journal>
+        <ControllableJournal />
       </Provider>
     );
   }
