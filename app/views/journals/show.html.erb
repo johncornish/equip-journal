@@ -1,14 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @journal.name %>
-</p>
-
 <%= link_to 'Edit', edit_journal_path(@journal) %> |
 <%= link_to 'Back', journals_path %>
 
 <%= react_component(
-  "JournalApp",
-  { name: @journal.name }
+  "Journal",
+  {
+    name: @journal.name,
+    collections: @collections,
+    journalEntriesByCollection: @journal.journal_entries_by_collection,
+  }
 ) %>

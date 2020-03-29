@@ -1,9 +1,36 @@
 import React from "react"
 import PropTypes from "prop-types"
+
+// <%= render 'journal_entry_form', journal_entry: @journal_entry %>
+const JournalEntry = ({id, text, collection}) => (
+  <li class={collection ? ' text-muted' : ''}>
+    {text} <a href={`/journal_entries/${id}/edit`}>edit</a> <a href="#">delete</a>
+  </li>
+)
+
 class Journal extends React.Component {
   render () {
-    const entries = this.props.journalEntries.map((je, i) => (
-      <li key={i}>{je.text}</li>
+    const collectionElements = this.props.collections.map((c, i) => (
+      <li>
+        <a href="#" key={i}>{c}</a>
+      </li>
+    ))
+    const pageElements = Object.entries(this.props.journalEntriesByCollection).map(([collectionKey, jes]) => (
+      <div key={collectionKey} class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{collectionKey}</h5>
+            <ul>
+              {jes.map((je, i) => (
+                <JournalEntry
+                  key={i}
+                  {...je}
+                />
+            ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     ))
     return (
       <React.Fragment>
@@ -11,12 +38,7 @@ class Journal extends React.Component {
           <strong>Name: </strong>
           {this.props.name}
         </p>
-        <ul>
-          {entries}
-        </ul>
-      </React.Fragment>
 
-      <%= render 'journal_entry_form', journal_entry: @journal_entry %>
 
       <div class="container-fluid">
         <div class="row">
@@ -25,42 +47,15 @@ class Journal extends React.Component {
               <div class="card-body">
                 <h5 class="card-title">Index</h5>
                 <ul id="index">
-                  <% @collections.each do |c| %>
-                  <li>
-                    <a href="#journal-entries-<%= c %>"><%= c %></a>
-                  </li>
-                  <% end %>
+                  {collectionElements}
                 </ul>
               </div>
             </div>
           </div>
-          <% @journal.journal_entries_by_collection.reverse_each do |collection_key, jes| %>
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"><%= collection_key %></h5>
-                  <% if !jes.first.nil? && jes.first.is_task? %>
-                  <% tasks = jes.select { |je| je.is_task? } %>
-                  <% jes = jes[tasks.length - 1...] %>
-                  <h6>Tasks</h6>
-                  <ul id="journal-entries-<%= collection_key %>-tasks">
-                    <% tasks.each do |t| %>
-                    <%= render(:partial => 'journal_entries/single', :locals => { :journal_entry => t }) %>
-                    <% end %>
-                  </ul>
-                  <h6>Journal</h6>
-                  <% end %>
-                  <ul id="journal-entries-<%= collection_key %>">
-                    <% jes.each do |je| %>
-                    <%= render(:partial => 'journal_entries/single', :locals => { :journal_entry => je }) %>
-                    <% end %>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          <% end %>
+          {pageElements}
         </div>
       </div>
+    </React.Fragment>
     );
   }
 }
