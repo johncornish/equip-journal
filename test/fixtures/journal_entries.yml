@@ -9,6 +9,10 @@ two:
   text: MyText
   collection: MyCollection
 
-parentJournalEntry:
+parentJournalEntryOne:
   journal: parentJournal
-  text: ParentJournalEntry
+  text: ParentJournalEntryOne
+
+parentJournalEntryTwo:
+  journal: parentJournal
+  text: ParentJournalEntryTwo

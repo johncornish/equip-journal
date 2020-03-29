@@ -28,6 +28,10 @@ class JournalEntriesController < ApplicationController
 
     respond_to do |format|
       if @journal_entry.save
+        if extension_params[:is_task] == "true"
+          Task.new_default_from_journal_entry(@journal_entry)
+        end
+
         format.html { redirect_to @journal_entry, notice: 'Journal entry was successfully created.' }
         format.json { render :show, status: :created, location: @journal_entry }
         format.js { render :show }
@@ -45,6 +49,12 @@ class JournalEntriesController < ApplicationController
   def update
     respond_to do |format|
       if @journal_entry.update(journal_entry_params)
+        if extension_params[:is_task] == "true" && !@journal_entry.is_task?
+          Task.new_default_from_journal_entry(@journal_entry)
+        elsif extension_params[:is_task] == "false" && @journal_entry.is_task?
+          @journal_entry.task.destroy
+        end
+
         format.html { redirect_to @journal_entry, notice: 'Journal entry was successfully updated.' }
         format.json { render :show, status: :ok, location: @journal_entry }
       else
@@ -74,5 +84,9 @@ class JournalEntriesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def journal_entry_params
       params.require(:journal_entry).permit(:journal_id, :text, :collection)
+    end
+
+    def extension_params
+      params.require(:journal_entry).permit(:is_task)
     end
 end

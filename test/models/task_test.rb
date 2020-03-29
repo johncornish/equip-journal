@@ -37,4 +37,21 @@ class TaskTest < ActiveSupport::TestCase
       je.destroy
     end
   end
+
+  test "creates a default task from journal entry" do
+    j = Journal.create!(
+      name: 'Test journal',
+    )
+    je = JournalEntry.create!(
+      text: 'Test journal entry text 1',
+      journal: j,
+    )
+    t = nil
+
+    assert_difference('Task.count') do
+      t = Task.new_default_from_journal_entry(je)
+    end
+
+    assert_equal je, t.journal_entry
+  end
 end
