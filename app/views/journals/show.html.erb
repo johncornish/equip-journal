@@ -26,7 +26,7 @@
         </div>
       </div>
     </div>
-    <% @journal.journal_entries_by_collection.each do |collection_key, jes| %>
+    <% @journal.journal_entries_by_collection.reverse_each do |collection_key, jes| %>
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">

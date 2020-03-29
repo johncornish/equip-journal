@@ -84,15 +84,6 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
     get journal_url(@journal)
 
     expected = to_sequence_regex([
-      '1-1-2000',
-      'test-entry-text-1',
-      'test-entry-text-2',
-      'test-entry-task-1',
-      'test-entry-text-3',
-      'test-collection-1',
-      'test-entry-text-1',
-      'test-collection-2',
-      'test-entry-text-3',
       '1-12-2000',
       'Tasks',
       'test-entry-task-1',
@@ -100,6 +91,18 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
       'Journal',
       'test-entry-text-4',
       'test-entry-task-2',
+
+      'test-collection-2',
+      'test-entry-text-3',
+      
+      'test-collection-1',
+      'test-entry-text-1',
+
+      '1-1-2000',
+      'test-entry-text-1',
+      'test-entry-text-2',
+      'test-entry-task-1',
+      'test-entry-text-3',
     ])
 
     assert_response :success
