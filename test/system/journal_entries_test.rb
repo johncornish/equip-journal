@@ -22,12 +22,39 @@ class JournalEntriesTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
+  test "creating a Journal task" do
+    visit journal_entries_url
+    click_on "New Journal Entry"
+
+    fill_in "Journal", with: @journal_entry.journal_id
+    fill_in "Text", with: @journal_entry.text
+    check "Is task"
+
+    click_on "Create Journal entry"
+    assert_text "Journal entry was successfully created"
+
+    click_on "Back"
+  end
+
   test "updating a Journal entry" do
     visit journal_entries_url
     click_on "Edit", match: :first
 
     fill_in "Journal", with: @journal_entry.journal_id
     fill_in "Text", with: @journal_entry.text
+    click_on "Update Journal entry"
+
+    assert_text "Journal entry was successfully updated"
+    click_on "Back"
+  end
+
+  test "updating a Journal entry to be a task" do
+    visit journal_entries_url
+    click_on "Edit", match: :first
+
+    fill_in "Journal", with: @journal_entry.journal_id
+    fill_in "Text", with: @journal_entry.text
+    check "Is task"
     click_on "Update Journal entry"
 
     assert_text "Journal entry was successfully updated"
