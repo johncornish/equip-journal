@@ -3,35 +3,45 @@ import PropTypes from "prop-types"
 
 // <%= render 'journal_entry_form', journal_entry: @journal_entry %>
 const JournalEntry = ({id, text, collection}) => (
-  <li class={collection ? ' text-muted' : ''}>
+  <li className={collection ? ' text-muted' : ''}>
     {text} <a href={`/journal_entries/${id}/edit`}>edit</a> <a href="#">delete</a>
   </li>
+)
+
+const JournalPage = ({title, entries}) => (
+  <div className="col-sm-6">
+    <div className="card">
+      <div className="card-body">
+        <h5 className="card-title">{title}</h5>
+        <ul>
+          {entries.map((entry, i) => (
+            <JournalEntry
+              key={i}
+              {...entry}
+            />
+        ))}
+        </ul>
+      </div>
+    </div>
+  </div>
 )
 
 class Journal extends React.Component {
   render () {
     const collectionElements = this.props.collections.map((c, i) => (
-      <li>
-        <a href="#" key={i}>{c}</a>
+      <li key={i}>
+        <a href="#">{c}</a>
       </li>
     ))
-    const pageElements = Object.entries(this.props.journalEntriesByCollection).map(([collectionKey, jes]) => (
-      <div key={collectionKey} class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{collectionKey}</h5>
-            <ul>
-              {jes.map((je, i) => (
-                <JournalEntry
-                  key={i}
-                  {...je}
-                />
-            ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    ))
+    const pageElements = Object
+                          .entries(this.props.journalEntriesByCollection)
+                          .map(([collectionKey, jes]) => (
+                            <JournalPage
+                              key={collectionKey}
+                              title={collectionKey}
+                              entries={jes}
+                            />
+                          ))
     return (
       <React.Fragment>
         <p>
@@ -40,12 +50,12 @@ class Journal extends React.Component {
         </p>
 
 
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Index</h5>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-sm-6">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">Index</h5>
                 <ul id="index">
                   {collectionElements}
                 </ul>
