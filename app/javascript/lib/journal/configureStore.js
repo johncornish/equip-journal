@@ -1,6 +1,7 @@
 import { createStore } from 'redux'
 
-const initialState = {
+const defaultState = {
+  name: 'thar is kno naem',
   journalEntries: [
     {text: 'Test journal entry text'}
   ]
@@ -14,5 +15,11 @@ const rootReducer = (state, action) => {
   }
 }
 
-const configureStore = () => createStore(rootReducer, initialState)
+const configureStore = initialState => createStore(
+  rootReducer,
+  {
+    ...defaultState,
+    ...initialState,
+  },
+)
 export default configureStore

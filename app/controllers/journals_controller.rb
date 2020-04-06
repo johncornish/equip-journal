@@ -10,9 +10,6 @@ class JournalsController < ApplicationController
   # GET /journals/1
   # GET /journals/1.json
   def show
-    @journal_entry = JournalEntry.new
-    @journal_entry.journal = @journal
-    @collections = JournalEntry.all.filter {|je| je.in_collection? }.map{ |je| je.collection }.uniq
   end
 
   # GET /journals/new

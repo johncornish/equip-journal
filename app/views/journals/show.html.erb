@@ -4,10 +4,9 @@
 <%= link_to 'Back', journals_path %>
 
 <%= react_component(
-  "Journal",
+  "JournalApp",
   {
     name: @journal.name,
-    collections: @collections,
-    journalEntriesByCollection: @journal.journal_entries_by_collection,
+    journalEntries: @journal.journal_entries,
   }
 ) %>
