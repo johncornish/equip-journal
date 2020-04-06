@@ -29,7 +29,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "scripts": {
-    "test": "jest --testPathPattern ./app/javascript/*/*.test.js",
-    "test:watch": "jest  --testPathPattern ./app/javascript/*/*.test.js --watch"
+    "test": "jest --testPathPattern './app/javascript/.*.test.js'",
+    "test:watch": "jest  --testPathPattern ./app/javascript/.*.test.js --watch"
   }
 }
