@@ -12,10 +12,16 @@ class JournalPage extends React.Component {
       />
     ))
     return (
-      <React.Fragment>
-        Title: {this.props.title}
-        {entryElements}
-      </React.Fragment>
+      <div className="col-sm-6">
+        <div className="card">
+          <div className="card-body">
+            <h5 className="card-title">{this.props.title}</h5>
+            <ul>
+              {entryElements}
+            </ul>
+          </div>
+        </div>
+      </div>
     );
   }
 }

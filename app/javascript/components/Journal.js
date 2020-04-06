@@ -3,30 +3,11 @@ import PropTypes from "prop-types"
 
 import JournalPage from './JournalPage'
 
-// <%= render 'journal_entry_form', journal_entry: @journal_entry %>
 const JournalEntry = ({id, text, collection}) => (
   <li className={collection ? ' text-muted' : ''}>
     {text} <a href={`/journal_entries/${id}/edit`}>edit</a> <a href="#">delete</a>
   </li>
 )
-
-// const JournalPage = ({title, entries}) => (
-//   <div className="col-sm-6">
-//     <div className="card">
-//       <div className="card-body">
-//         <h5 className="card-title">{title}</h5>
-//         <ul>
-//           {entries.map((entry, i) => (
-//             <JournalEntry
-//               key={i}
-//               {...entry}
-//             />
-//         ))}
-//         </ul>
-//       </div>
-//     </div>
-//   </div>
-// )
 
 class Journal extends React.Component {
   render () {
