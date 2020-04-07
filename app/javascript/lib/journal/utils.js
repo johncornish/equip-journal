@@ -6,3 +6,6 @@ export const entriesToPages = entries => [
     entries,
   },
 ]
+export const entriesToCollections = entries => entries
+  .filter(e => e.collection)
+  .map(e => e.collection)
