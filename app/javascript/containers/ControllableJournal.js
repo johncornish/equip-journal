@@ -1,15 +1,8 @@
 import { connect } from 'react-redux'
 
+import { entriesToPages, entriesToCollections } from '../lib/journal/utils'
+
 import Journal from '../components/Journal'
-
-const entriesToCollections = entries => entries.map(e => e.collection)
-
-const entriesToPages = entries => [
-  {
-    title: 'The one page for now',
-    entries,
-  },
-]
 
 const mapStateToProps = state => ({
   name: state.name,
