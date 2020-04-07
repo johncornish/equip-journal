@@ -6,6 +6,7 @@ export const entriesToCollections = entries => entries
 
 const pageReducer = (acc, e) => {
   if (acc.length === 0) {
+    // https://www.ruby-forum.com/t/date-format-and-parsing-to-javascript-date/142276
     const d = Date.parse(e.created_at)
     return [
       {
