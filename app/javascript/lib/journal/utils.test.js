@@ -25,6 +25,65 @@ describe('entriesToCollections', () => {
 })
 
 describe('entriesToPages', () => {
-  it('should ', () => {
+  it('should group entries by date and collection', () => {
+    const entries = [
+      {text: "Test entry text 1", created_at: "2000-01-1T01:01:01.001Z"},
+      {text: "Test entry text 2", created_at: "2000-01-1T01:01:01.001Z"},
+    ]
+    const expectedPages = [
+      {
+        title: '1-1-2000',
+        entries: [
+          {text: "Test entry text 1", created_at: "2000-01-1T01:01:01.001Z"},
+          {text: "Test entry text 2", created_at: "2000-01-1T01:01:01.001Z"},
+        ]
+      }
+    ]
+    expect(entriesToPages(entries)).toStrictEqual(expectedPages)
   })
 })
+//
+// test "group journal entries by date and collection" do
+//   j = Journal.create!(
+//     name: 'test-journal',
+//   )
+//
+//   t = Time.local(2000, 1, 1, 10, 5, 0)
+//   Timecop.travel(t)
+//   je1 = JournalEntry.create!(
+//     journal: j,
+//     text: 'test-entry-text-1',
+//     collection: 'test-collection-text-1',
+//   )
+//   je2 = JournalEntry.create!(
+//     journal: j,
+//     text: 'test-entry-text-2',
+//   )
+//   t = Time.local(2000, 1, 1, 10, 0, 0)
+//   Timecop.travel(t)
+//   je3 = JournalEntry.create!(
+//     journal: j,
+//     text: 'test-entry-text-3',
+//     collection: 'test-collection-text-2',
+//   )
+//   t = Time.local(2000, 1, 1, 9, 0, 0)
+//   Timecop.travel(t)
+//   je4 = JournalEntry.create!(
+//     journal: j,
+//     text: 'test-entry-text-4',
+//   )
+//   t = Time.local(2000, 1, 12, 10, 0, 0)
+//   Timecop.travel(t)
+//   je5 = JournalEntry.create!(
+//     journal: j,
+//     text: 'test-entry-text-5',
+//   )
+//
+//   expected = ActiveSupport::OrderedHash.new
+//   expected['1-1-2000'] = [je4, je3, je1, je2]
+//   expected['test-collection-text-2'] = [je3]
+//   expected['test-collection-text-1'] = [je1]
+//   expected['1-12-2000'] = [je5]
+//
+//   assert_equal expected, j.journal_entries_by_collection
+// end

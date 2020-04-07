@@ -5822,6 +5822,11 @@ mixin-deep@^1.2.0:
   dependencies:
     minimist "0.0.8"
 
+moment-js@^1.1.15:
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/moment-js/-/moment-js-1.1.15.tgz#28da79be3bf2bc4a3dffd2b8368c28e863caa9d5"
+  integrity sha1-KNp5vjvyvEo9/9K4Nowo6GPKqdU=
+
 moo@^0.5.0:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/moo/-/moo-0.5.1.tgz#7aae7f384b9b09f620b6abf6f74ebbcd1b65dbc4"
