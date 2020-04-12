@@ -89,4 +89,24 @@ class JournalEntryTest < ActiveSupport::TestCase
     assert !je3.is_task?
     assert je4.is_task?
   end
+
+  test "has a created_at_js attribute specifically to bridge the gap betweeen Ruby and JS" do
+    j = Journal.create!(
+      name: 'Test journal',
+    )
+    t = Time.utc(2001, 2, 3, 4, 5, 6.5)
+    Timecop.travel(t)
+    je1 = JournalEntry.create!(
+      text: 'Test journal entry text',
+      journal: j,
+    )
+    t = Time.utc(2010, 12, 30, 16, 55, 55)
+    Timecop.travel(t)
+    je2 = JournalEntry.create!(
+      text: 'Test journal entry text',
+      journal: j,
+    )
+    assert_equal je1.created_at_js, "2001-02-03 04:05:06.500"
+    assert_equal je2.created_at_js, "2010-12-30 16:55:55.000"
+  end
 end

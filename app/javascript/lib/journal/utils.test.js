@@ -27,15 +27,15 @@ describe('entriesToCollections', () => {
 describe('entriesToPages', () => {
   it('should group entries by date and collection', () => {
     const entries = [
-      {text: "Test entry text 1", created_at: "2000-01-1T01:01:01.001Z"},
-      {text: "Test entry text 2", created_at: "2000-01-1T01:01:01.001Z"},
+      {text: "Test entry text 1", created_at_js: "2000-01-02 01:01:01.001"},
+      {text: "Test entry text 2", created_at_js: "2000-01-02 01:01:01.001"},
     ]
     const expectedPages = [
       {
-        title: '1-1-2000',
+        title: '1-2-2000',
         entries: [
-          {text: "Test entry text 1", created_at: "2000-01-1T01:01:01.001Z"},
-          {text: "Test entry text 2", created_at: "2000-01-1T01:01:01.001Z"},
+          {text: "Test entry text 1", created_at_js: "2000-01-02 01:01:01.001"},
+          {text: "Test entry text 2", created_at_js: "2000-01-02 01:01:01.001"},
         ]
       }
     ]
